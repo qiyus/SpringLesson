@@ -1,43 +1,72 @@
 package com.vigor.web;
 
+import com.vigor.web.domain.Success;
+import com.vigor.web.domain.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
 /**
  * Created by Vigor on 2017/7/19.
- * Users
+ * 用户管理
  */
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
+    /**
+     * 用户集合
+     */
     private static final Map<Long, User> users = Collections.synchronizedMap(new HashMap<Long, User>());
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    /**
+     * 用户列表
+     * @return 用户列表
+     */
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<User> getUsers() {
         return new ArrayList<>(users.values());
     }
 
+    /**
+     * 追加用户
+     * @param user 用户
+     * @return 操作结果
+     */
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public String addUser(@RequestBody User user) {
+    public Success addUser(@RequestBody User user) {
         users.put(user.getId(), user);
-        return "success";
+        return new Success();
     }
 
+    /**
+     * 取得指定用户
+     * @param id 用户ID
+     * @return ID对应的用户。
+     */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public User getUser(@PathVariable long id) {
         return users.get(id);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public String updateUser(@PathVariable long id, @RequestBody User user) {
-        users.put(id, user);
-        return "success";
+    /**
+     * 更新用户信息
+     * @param user 用户信息
+     * @return 操作结果
+     */
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    public Success updateUser(@RequestBody User user) {
+        users.put(user.getId(), user);
+        return new Success();
     }
 
+    /**
+     * 删除用户
+     * @param id 用户ID
+     * @return 操作结果
+     */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public String deleteUser(@PathVariable long id) {
+    public Success deleteUser(@PathVariable long id) {
         users.remove(id);
-        return "success";
+        return new Success();
     }
 }

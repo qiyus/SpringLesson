@@ -1,4 +1,4 @@
-package com.vigor.web;
+package com.vigor.web.domain;
 
 /**
  * Created by Vigor on 2017/7/20.
