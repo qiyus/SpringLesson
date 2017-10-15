@@ -4,25 +4,28 @@ buildscript {
 	}
 	repositories {
 		mavenCentral()
+        maven { url 'https://plugins.gradle.org/m2/' }
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.4.17")
-	}
+    }
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'com.gorylenko.gradle-git-properties'
 
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
 
 repositories {
 	mavenCentral()
 }
 
+gitProperties {
+    gitPropertiesDir = new File("${project.rootDir}/build/resources/main")
+}
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter')
@@ -30,5 +33,6 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-hateoas')
 	compile('org.webjars:hal-browser')
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

@@ -2,6 +2,7 @@ package com.vigor.web;
 
 import com.vigor.web.domain.Success;
 import com.vigor.web.domain.User;
+import com.vigor.web.exception.UserEmptyException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -23,7 +24,10 @@ public class UserController {
      * @return 用户列表
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public List<User> getUsers() {
+    public List<User> getUsers() throws Exception {
+        if (users.size() == 0) {
+            throw new UserEmptyException("user is empty");
+        }
         return new ArrayList<>(users.values());
     }
 
@@ -32,7 +36,7 @@ public class UserController {
      * @param user 用户
      * @return 操作结果
      */
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public Success addUser(@RequestBody User user) {
         users.put(user.getId(), user);
         return new Success();

@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -28,7 +29,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 public class UserControllerTest {
     private final static String JSON_GEORGE = "{\"id\":1,\"userName\":\"George\",\"age\":56}";
     private final static String JSON_JONES = "{\"id\":1,\"userName\":\"Jones\",\"age\":58}";
-    private final static String JSON_USER_LIST = "[]";
     private final static String JSON_SUCCESS = "{\"code\":\"0\",\"message\":\"success\"}";
 
     @Autowired
@@ -36,7 +36,7 @@ public class UserControllerTest {
 
     @Test
     public void a_addUser() throws Exception {
-        mvc.perform(post("/user/")
+        mvc.perform(post("/user")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(JSON_GEORGE)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
@@ -49,7 +49,7 @@ public class UserControllerTest {
         mvc.perform(get("/user/list")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().string(equalTo(JSON_USER_LIST)));
+                .andExpect(content().string(containsString("user is empty")));
     }
 
     @Test
