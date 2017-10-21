@@ -1,13 +1,19 @@
 package com.vigor.web.domain;
 
+import java.io.Serializable;
+
 /**
  * Created by Vigor on 2017/7/20.
  * 用户类
  */
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private long id;
-    private String userName;
+    private String name;
     private int age;
+    private String address;
 
     public long getId() {
         return id;
@@ -17,12 +23,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getAge() {
@@ -31,5 +37,13 @@ public class User {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

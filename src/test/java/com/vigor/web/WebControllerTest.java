@@ -1,5 +1,6 @@
 package com.vigor.web;
 
+import com.vigor.web.controller.WebController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +17,18 @@ import static org.hamcrest.CoreMatchers.equalTo;
  *
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = IndexController.class)
+@SpringBootTest(classes = WebController.class)
 @WebAppConfiguration
-public class IndexControllerTest {
+public class WebControllerTest {
 
     @Autowired
-    private IndexController indexController;
+    private WebController webController;
 
     @Test
-    public void index() throws Exception {
+    public void subject() throws Exception {
         ModelMap map = new ModelMap();
-        String index = indexController.startBlog(map);
-        assertThat(index, equalTo("index"));
-        assertThat(map.get("subject"), equalTo("thymeleaf test ok"));
+        String index = webController.hello(map);
+        assertThat(index, equalTo("home"));
+        assertThat(map.get("start"), equalTo("/hello"));
     }
 }

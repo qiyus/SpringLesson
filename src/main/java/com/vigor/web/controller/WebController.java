@@ -1,4 +1,4 @@
-package com.vigor.web;
+package com.vigor.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * thymeleaf 练习
  */
 @Controller
-public class IndexController {
+public class WebController {
 
     @RequestMapping("/")
-    public String startBlog(ModelMap map) {
-        map.addAttribute("subject", "thymeleaf test ok");
-        return "index";
+    public String hello(ModelMap map) {
+        map.addAttribute("start", "/hello");
+        return "home";
     }
 }

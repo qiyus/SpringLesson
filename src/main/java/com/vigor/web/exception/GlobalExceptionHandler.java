@@ -1,4 +1,4 @@
-package com.vigor.web;
+package com.vigor.web.exception;
 
 import com.vigor.web.domain.ErrorInfo;
 import org.springframework.web.bind.annotation.ControllerAdvice;
