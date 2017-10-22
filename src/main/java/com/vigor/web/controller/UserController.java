@@ -4,6 +4,7 @@ import com.vigor.web.domain.Success;
 import com.vigor.web.domain.User;
 import com.vigor.web.exception.UserEmptyException;
 import com.vigor.web.mapper.UserMapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,8 +50,18 @@ public class UserController {
      * @return 指定的用户。
      */
     @RequestMapping(value = "user/{name}", method = RequestMethod.GET)
-    public User getUser(@PathVariable String name) {
-        return mapper.findByName(name);
+    public List<User> getUser(@PathVariable String name) {
+        return mapper.findUserByName(name);
+    }
+
+    /**
+     * 取得超出指定年龄的用户。
+     * @param age 年龄
+     * @return 指定的用户
+     */
+    @RequestMapping(value = "user", method = RequestMethod.GET)
+    public List<User> getOlderUser(@RequestParam(value = "older") int age) {
+        return mapper.findUserOlder(age);
     }
 
     /**

@@ -1,5 +1,6 @@
-package com.vigor.web;
+package com.vigor.web.controller;
 
+import com.vigor.web.VigorProperties;
 import com.vigor.web.controller.PropertiesController;
 import org.junit.Test;
 import org.junit.runner.RunWith;

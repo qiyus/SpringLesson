@@ -1,4 +1,4 @@
-package com.vigor.web;
+package com.vigor.web.controller;
 
 import com.vigor.Application;
 import org.junit.Before;
@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WithMockUser(username = "user", roles = "USER")
 public class UserControllerTest {
     private final static String JSON_GEORGE = "{\"name\":\"Caroline\",\"age\":56, \"address\":\"beijing\"}";
-    private final static String JSON_JONES = "{\"id\":1,\"name\":\"Jones\",\"age\":58, \"address\":\"shanghai\"}";
+    private final static String JSON_JONES = "{\"id\":1,\"name\":\"Jones\",\"age\":53, \"address\":\"shanghai\"}";
 
     @Autowired
     private WebApplicationContext context;
@@ -65,11 +65,20 @@ public class UserControllerTest {
     }
 
     @Test
-    public void c_getUser() throws Exception {
+    public void c_getUserByName() throws Exception {
         mvc.perform(get("/user/Jones")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("name").value("Jones"));
+    }
+
+    @Test
+    public void c_getOlderUser() throws Exception {
+        mvc.perform(get("/user?older=30")
+                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk())
+                .andExpect(content().string(startsWith("[")))
+                .andExpect(content().string(endsWith("]")));
     }
 
     @Test
@@ -83,8 +92,10 @@ public class UserControllerTest {
     }
 
     @Test
+    @Transactional
+    @Rollback
     public void e_deleteUser() throws Exception {
-        mvc.perform(delete("/user/7")
+        mvc.perform(delete("/user/2")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("code").value("0"));
