@@ -1,7 +1,6 @@
 package com.vigor.web.controller;
 
-import com.vigor.web.VigorProperties;
-import com.vigor.web.controller.PropertiesController;
+import com.vigor.web.properties.VigorProperties;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

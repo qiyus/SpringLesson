@@ -1,6 +1,6 @@
 package com.vigor.web.controller;
 
-import com.vigor.web.VigorProperties;
+import com.vigor.web.properties.VigorProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
