@@ -6,14 +6,11 @@ package com.vigor.web.domain;
  */
 public final class Success {
 
-    private final String code = "0";
-    private final String message = "success";
-
     public String getCode() {
-        return code;
+        return "0";
     }
 
     public String getMessage() {
-        return message;
+        return "success";
     }
 }

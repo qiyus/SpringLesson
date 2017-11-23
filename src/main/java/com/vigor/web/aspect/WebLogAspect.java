@@ -1,9 +1,5 @@
 package com.vigor.web.aspect;
 
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
 import com.vigor.Application;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -30,7 +26,7 @@ import java.util.Arrays;
 public class WebLogAspect {
     private final static Logger logger = LoggerFactory.getLogger(Application.class);
 
-    ThreadLocal<Long> startTime = new ThreadLocal<>();
+    private final ThreadLocal<Long> startTime = new ThreadLocal<>();
 
     @Pointcut("execution(public * com.vigor.web.controller..*.*(..))")
     public void webLog() {

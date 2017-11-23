@@ -25,6 +25,6 @@ public class PropertiesController {
      */
     @RequestMapping(value = "/vigor", method = RequestMethod.GET)
     public String helloContent() {
-        return name + properties.getContent();
+        return properties.getContent();
     }
 }

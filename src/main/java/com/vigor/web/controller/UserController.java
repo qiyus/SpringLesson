@@ -4,11 +4,10 @@ import com.vigor.web.domain.Success;
 import com.vigor.web.domain.User;
 import com.vigor.web.exception.UserEmptyException;
 import com.vigor.web.mapper.UserMapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.List;
 
 /**
  * Created by Vigor on 2017/7/19.

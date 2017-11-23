@@ -13,5 +13,4 @@ import org.junit.runners.Suite;
         WebControllerTest.class
 })
 public class ApplicationTests {
-
 }

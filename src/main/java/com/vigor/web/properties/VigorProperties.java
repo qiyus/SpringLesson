@@ -1,6 +1,5 @@
 package com.vigor.web.properties;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -11,9 +10,9 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "com.vigor.example")
 public class VigorProperties {
-    String name;
-    String title;
-    String content;
+    private String name;
+    private String title;
+    private String content;
 
     public String getName() {
         return name;
