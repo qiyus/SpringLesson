@@ -28,7 +28,7 @@ public class RedisTest {
 
     @Test
     public void setString() throws Exception {
-        redisStringTemplate.opsForValue().set("string", "Vigor");
+        redisStringTemplate.opsForValue().set("name", "Vigor");
         assertThat(redisStringTemplate.opsForValue().get("name"), equalTo("Vigor"));
     }
 

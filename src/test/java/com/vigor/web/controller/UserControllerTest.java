@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -44,8 +46,6 @@ public class UserControllerTest {
     }
 
     @Test
-    @Transactional
-    @Rollback
     public void a_addUser() throws Exception {
         mvc.perform(post("/user")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -60,8 +60,7 @@ public class UserControllerTest {
         mvc.perform(get("/users")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().string(startsWith("[")))
-                .andExpect(content().string(endsWith("]")));
+                .andExpect(jsonPath("$.length()", greaterThanOrEqualTo(0)));
     }
 
     @Test
@@ -69,7 +68,7 @@ public class UserControllerTest {
         mvc.perform(get("/user/Jones")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("name").value("Jones"));
+                .andExpect(jsonPath("$[*].name", everyItem(equalTo("Jones"))));
     }
 
     @Test
@@ -77,11 +76,12 @@ public class UserControllerTest {
         mvc.perform(get("/user?older=30")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().string(startsWith("[")))
-                .andExpect(content().string(endsWith("]")));
+                .andExpect(jsonPath("$[*].age", everyItem(greaterThan(30))));
     }
 
     @Test
+    @Transactional
+    @Rollback
     public void d_updateUser() throws Exception {
         mvc.perform(put("/user/")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -95,7 +95,7 @@ public class UserControllerTest {
     @Transactional
     @Rollback
     public void e_deleteUser() throws Exception {
-        mvc.perform(delete("/user/2")
+        mvc.perform(delete("/user/1")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("code").value("0"));
